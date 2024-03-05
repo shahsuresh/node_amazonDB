@@ -10,7 +10,7 @@ router.post("/seller/add", async (req, res) => {
   const sellerDetails = req.body;
   //console.log(sellerDetails);
 
-  //find seller with new email
+  //find seller with given email
 
   const sellerEmail = await Seller.findOne({ email: sellerDetails.email });
 
@@ -50,4 +50,24 @@ router.get("/seller/list", async (req, res) => {
 
 //? search seller
 
+router.get("/seller/search", async (req, res) => {
+  // extract seller name letters from req.body
+  const { searchedText } = req.body;
+
+  // match the searched text with seller firstName
+  const sellerName = await Seller.find({
+    $or: [
+      { firstName: { $regex: `${searchedText}`, $options: "i" } },
+      { lastName: { $regex: `${searchedText}`, $options: "i" } },
+    ],
+  });
+
+  // if match not found, send message NOT FOUND
+  if (sellerName.length === 0) {
+    return res.status(404).send({ message: "No Seller Exist with such Names" });
+  }
+
+  // if seller name searched text matches with seller names, show result
+  res.status(200).send({ message: "Seller Details", sellerName });
+});
 export default router;

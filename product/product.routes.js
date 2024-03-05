@@ -1,5 +1,5 @@
 import express from "express";
-import Product from "./amazon.db.model.js";
+import Product from "./product.db.model.js";
 import mongoose from "mongoose";
 
 const router = express.Router();

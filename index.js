@@ -1,6 +1,6 @@
 import express from "express";
 import connectDB from "./connect.db.js";
-import productRoutes from "./product/product.routes.js"; //renamed router as productRoutes
+import productRoutes from "./product/product.routes.js"; //renamed "router" as productRoutes
 import sellerRoutes from "./seller/seller.routes.js"; // import and renamed seller router
 
 const app = express();
